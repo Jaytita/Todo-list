@@ -2,6 +2,9 @@ import React from 'react'
 import './task.css'
 import { Checkbox, TextField, Button } from '@mui/material'
 import { Book, CalendarMonth, Star } from '@mui/icons-material'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faStar as solidStar } from '@fortawesome/free-solid-svg-icons';
+import { faStar as regularStar } from '@fortawesome/free-regular-svg-icons';
 
 export default function Task() {
     return (
@@ -27,8 +30,8 @@ export default function Task() {
                         </span>
                     </div>
 
-                    <Button><Star /></Button>
                     
+                    <FontAwesomeIcon icon={regularStar} />
                 </div>
 
                 <div className="task">
