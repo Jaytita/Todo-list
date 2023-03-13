@@ -48,7 +48,7 @@ p {
 }
 .task {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: space-between;
     padding: 0.3rem;
     width: 100%;
@@ -65,9 +65,13 @@ p {
     display: flex;
     gap: 0;
 }
-.task_details span {
+.task_details span p {
     display: inline-block;
-    align-items: center;
+    align-items: flex-end;
+}
+
+.fav_box {
+    margin-right: 1rem;
 }
 
 /* Ken: Something went wrong with its width (task_list tho) */

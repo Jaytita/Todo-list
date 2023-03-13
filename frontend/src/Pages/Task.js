@@ -1,12 +1,19 @@
 import React from 'react'
+import { useState } from 'react'
 import './task.css'
 import { Checkbox, TextField, Button } from '@mui/material'
 import { Book, CalendarMonth, Star } from '@mui/icons-material'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar as solidStar } from '@fortawesome/free-solid-svg-icons';
-import { faStar as regularStar } from '@fortawesome/free-regular-svg-icons';
+import { faStar as regStar } from '@fortawesome/free-regular-svg-icons';
 
 export default function Task() {
+    const [isFav, setIsFav] = useState(false);
+
+    const handleIsFav = () => {
+        setIsFav(!isFav);
+    };
+
     return (
         <main>
             <div className="section_name">
@@ -20,7 +27,7 @@ export default function Task() {
                         <Checkbox />
                         
                         <span>
-                        <h6>Task 1 name</h6>
+                        <h6>Task 1 Please fix position of calendar icon below</h6>
                             <p>Tasks
                                 <span>
                                 <CalendarMonth style={{height: "1rem"}}/>
@@ -29,9 +36,10 @@ export default function Task() {
                             </p>
                         </span>
                     </div>
-
                     
-                    <FontAwesomeIcon icon={regularStar} />
+                    <div className="fav_box" onClick={handleIsFav}>
+                        <FontAwesomeIcon icon={isFav ? solidStar: regStar} />
+                    </div>
                 </div>
 
                 <div className="task">
@@ -39,7 +47,7 @@ export default function Task() {
                         <Checkbox />
                         
                         <span>
-                        <h6>Task 2 name</h6>
+                        <h6>Task 2 When star is clicked, it will be color filled, but applied to all because Ken is using useState</h6>
                             <p>Tasks
                                 <span>
                                 <CalendarMonth style={{height: "1rem"}}/>
@@ -49,7 +57,9 @@ export default function Task() {
                         </span>
                     </div>
 
-                    <Button><Star /></Button>
+                    <div className="fav_box" onClick={handleIsFav}>
+                        <FontAwesomeIcon icon={isFav ? solidStar: regStar} />
+                    </div>
                     
                 </div>
 
@@ -58,7 +68,7 @@ export default function Task() {
                         <Checkbox />
                         
                         <span>
-                        <h6>Task 3 name</h6>
+                        <h6>Task 3 The easiest, anyone please adjust font size and weight</h6>
                             <p>Tasks
                                 <span>
                                 <CalendarMonth style={{height: "1rem"}}/>
@@ -68,7 +78,9 @@ export default function Task() {
                         </span>
                     </div>
 
-                    <Button><Star /></Button>
+                    <div className="fav_box" onClick={handleIsFav}>
+                        <FontAwesomeIcon icon={isFav ? solidStar: regStar} />
+                    </div>
                     
                 </div>
             </div>
