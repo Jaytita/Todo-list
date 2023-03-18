@@ -1,3 +1,4 @@
+import { Task } from '@mui/icons-material';
 import React from 'react';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import './App.css';
@@ -10,6 +11,7 @@ function App() {
 			<BrowserRouter>
 				<Routes>
 				<Route exact path="/" element={<Login/>}/>
+				<Route exact path="/task" element={<Task/>}/>
 				</Routes>
 			</BrowserRouter>
 			{/* <header className="App-header">
