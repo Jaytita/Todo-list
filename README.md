@@ -12,7 +12,15 @@ Current functions
     * Delete task
     * Drag and drop to reorder
 
-* (Next)
+Updates
+* 19/03
+    * Added MUI icons
+    * Added sidebar
+* 18/03
+    * Finished todo
+
+(Next)
+* Sidebar
     * History, completed tasks will be shown here instead
 
 ![Task site](Task.png)
