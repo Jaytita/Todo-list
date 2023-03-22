@@ -1,7 +1,14 @@
 import { useEffect, useState } from 'react'
 import './task.css'
 // import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { WbSunny, Nightlight, EventNote, AccessTime } from '@mui/icons-material';
+import {  WbSunny,
+          Nightlight,
+          EventNote,
+          AccessTime,
+          MeetingRoom,
+        } from '@mui/icons-material';
+import Sidebar from '../Components/Sidebar';
+import CopyBar from '../Components/CopyBar';
 
 function Task() {
   // Dark mode
@@ -115,25 +122,9 @@ function Task() {
       <header>
         <img src={darkMode ? "/images/bg-desktop-dark.jpg" : "/images/bg-desktop-light.jpg"} alt="banner" />
       </header>
-
-      {/* Important! Ken is doing sidebar from https://www.youtube.com/watch?v=CkVrmLLHmuI&t=18s
-      if anyone experienced responsive sidebar, jud leoy, dai prod */}
+      
       <section className="sidebar">
-        <ul>
-          <li class="active">
-            <a href="#">
-              <EventNote style={{fill: "white"}}/>
-              <p>My tasks</p>
-            </a>
-          </li>
-
-          <li>
-            <a href="#">
-              <AccessTime style={{fill: "white"}}/>
-              <p>History</p>
-            </a>
-          </li>
-        </ul>
+        <CopyBar/>
       </section>
 
       <div className="todo-app">
