@@ -70,7 +70,6 @@ header img {
 
 .sidebar {
   display: flex;
-  flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
   position: absolute;
@@ -108,6 +107,15 @@ header img {
 .sidebar li:hover{
   background-color: var(--circle-color);
   transition: 0.2s;
+}
+.close-sidebar {
+  display: flex;
+  position: absolute;
+  top: 2rem;
+  left: 12rem;
+  width: 2rem;
+  height: 2rem;
+  z-index: 1000;
 }
 
 .todo-app {

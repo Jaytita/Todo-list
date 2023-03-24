@@ -3,9 +3,7 @@ import './task.css'
 // import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import {  WbSunny,
           Nightlight,
-          EventNote,
-          AccessTime,
-          MeetingRoom,
+          Close,
         } from '@mui/icons-material';
 import Sidebar from '../Components/Sidebar';
 import CopyBar from '../Components/CopyBar';
@@ -125,6 +123,11 @@ function Task() {
       
       <section className="sidebar">
         <CopyBar/>
+
+        {/* !!! CLOSE MENU SUPPOSED TO BE HERE, BUT WHERE? !!! */}
+        <div className="close-sidebar">
+          <Nightlight style={{fill: "white"}}/>
+        </div>
       </section>
 
       <div className="todo-app">

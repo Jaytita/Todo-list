@@ -1,37 +1,51 @@
-import React from 'react'
+import { React, useState } from 'react'
 import './copybar.css'
 import {  
     EventNote,
     AccessTime,
     MeetingRoom,
+    Close,
   } from '@mui/icons-material';
 
 export default function CopyBar() {
-  return (
-    <section id="sidebar">
-		<ul class="side-menu top">
-			<li class="active">
-				<a href="#">
-					<EventNote/>
-					<span class="text">My tasks</span>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<AccessTime/>
-					<span class="text">History</span>
-				</a>
-			</li>
-		</ul>
+  const [activeTab, setActiveTab] = useState(0);
+  const menuItems = [
+    {
+      label: 'My tasks',
+      icon: <EventNote />,
+    },
+    {
+      label: 'History',
+      icon: <AccessTime />,
+    },
+  ];
 
-		<ul class="side-menu">
-			<li>
-				<a href="#" class="logout">
-					<MeetingRoom/>
-					<span class="text">Logout</span>
-				</a>
-			</li>
-		</ul>
-	</section>
+  const handleTabChange = (index) => {
+    setActiveTab(index);
+  }
+
+  return (
+    <section className="sidebar">
+      <ul className="side-menu top">
+        {/* Show 'My tasks' and 'History' tabs */}
+        {menuItems.map((item, index) => (
+          <li className={activeTab === index ? 'active' : ''} key={index}>
+            <a href="#" onClick={() => handleTabChange(index)}>
+              {item.icon}
+              <span className="text">{item.label}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      <ul className="side-menu">
+        <li>
+          <a href="#" className="logout">
+            <MeetingRoom/>
+            <span className="text">Logout</span>
+          </a>
+        </li>
+      </ul>
+    </section>
   )
-}
+};
