@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react'
-import './task.css'
+import './style.scss'
 // import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import {  WbSunny,
-          Nightlight,
-          Close,
-        } from '@mui/icons-material';
-import Sidebar from '../Components/Sidebar';
-import CopyBar from '../Components/CopyBar';
+import { 
+  WbSunny,
+  Nightlight,
+  Close,
+} from '@mui/icons-material';
+import Sidebar from '../../Components/Sidebar';
+import CopyBar from '../../Components/CopyBar';
 
-function Task() {
+export default function Task() {
   // Dark mode
   const [darkMode, setDarkMode] = useState(true);
   const root = document.querySelector(':root');
@@ -114,9 +115,9 @@ function Task() {
 
   //   setTasks(newTasks);
   // };
- 
+
   return (
-    <div className="App">
+    <div className="fem-task-app">
       <header>
         <img src={darkMode ? "/images/bg-desktop-dark.jpg" : "/images/bg-desktop-light.jpg"} alt="banner" />
       </header>
@@ -142,10 +143,10 @@ function Task() {
         </div>
 
         <div className="create-new">
-            <input 
-              onKeyDown={handleAddTask}
-              placeholder="Create a new todo..."
-            />
+          <input 
+            onKeyDown={handleAddTask}
+            placeholder="Create a new todo..."
+          />
         </div>
 
         <div className="todo">
@@ -220,5 +221,3 @@ function Task() {
     </div>
   )
 }
-
-export default Task;
