@@ -1,10 +1,26 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './login.scss'
-import { Form, Input, Button, Divider } from 'antd'
+import { Form, Input, Button, Divider, Space } from 'antd'
+import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
 import { useGoogleLogin, GoogleOAuthProvider } from '@react-oauth/google'
 import Card from '../../components/card';
 
 export default function Login() {
+  const [isLoginMode, setIsLoginMode] = useState(true);
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [delayBlack, setDelayBlack] = useState(false);
+
+  useEffect(() => {
+    setDelayBlack(false);
+    setTimeout(() => {
+      setDelayBlack(true);
+    }, 500);
+  }, [isLoginMode])
+
+  const handleShowPassword = () => {
+    setPasswordVisible(!passwordVisible);
+  }
+
   const LoginButton = () => {
 
     return (
@@ -15,85 +31,58 @@ export default function Login() {
   };
 
   return(
-    
     <div className="login-container">
-      {/* <div>
-        <Form
-          className="card"
-          name="login"
-          layout="vertical"
-        >
-          <div className="img-container">
-            <h1>MaiLok Dev</h1>
-          </div>
-
-          <div className="input-login-form">
-            <div className="form-inline">
-              <Form.Item
-                key={"email"}
-                rules={[
-                  {
-                    required: true,
-                    message: "Email is required!",
-                  },
-                  {
-                    type: "email",
-                    message: "This is not a valid email!",
-                  },
-                ]}
-                name={"email"}
-                label={null}
-              >
-                <Input size="large" placeholder="Email" />
-              </Form.Item>
+      <div className="login-right-side">
+        <div className="login-welcome">
+          <p>Welcome to <b>Mai Lok</b></p>
+          <div className="login-mode">
+            <div className={`${isLoginMode ? "selected" : ""}`} onClick={() => setIsLoginMode(true)}>
+              <p className={`${delayBlack && isLoginMode ? "delayed" : ""}`}>Login</p>
             </div>
-
-            <div className="form-inline">
-              <Form.Item
-                key={"password"}
-                rules={[{ required: true, message: "Password is required!" }]}
-                name={"password"}
-                label={null}
-              >
-                <Input
-                  size="large"
-                  type="password"
-                  placeholder="Password"
-                />
-              </Form.Item>
+            <div className={`${isLoginMode ? "" : "selected"}`} onClick={() => setIsLoginMode(false)}>
+              <p className={`${delayBlack && !isLoginMode ? "delayed" : ""}`}>Register</p>
             </div>
+            <div className={`mode-bg ${isLoginMode ? "" : "slide-right"}`}></div>
+          </div>
+        </div>
+
+        <div className="login-input">
+          <div className={`login-email ${isLoginMode ? "hidden" : ""}`}>
+            <label htmlFor="email">Email</label>
+            <input type="email" placeholder="Email" name="email" />
           </div>
 
-          <div className="form-inline end-form">
-            <Button
-              size="large"
-              htmlType="submit"
-              type="primary"
-            >
-              <span>Login With Email</span>
-            </Button>
+          <label htmlFor="username">Username</label>
+          <input type="text" placeholder="Username" name="username" />
+
+          <label htmlFor="password">Password</label>
+          <div className="password-container">
+            <input type={`${passwordVisible ? "text" : "password"}`} placeholder="Password" name="password" />
+            {passwordVisible ? <EyeInvisibleOutlined onClick={handleShowPassword}  /> : <EyeOutlined onClick={handleShowPassword} />}
           </div>
 
-          <div className="form-inline end-line">
-              <GoogleOAuthProvider
-              >
-                <LoginButton />
-              </GoogleOAuthProvider>
+          <div className={`login-remember ${isLoginMode ? "" : "hidden"}`}>
+            <div className="login-checkbox">
+              <input type="checkbox" />
+              <p>Remember me</p>
             </div>
-
-          <Divider />
-          <div className="form-inline" style={{ marginTop: "0px" }}>
-            <Button
-              type="link"
-            >
-              Forgot password ?
-            </Button>
+            <p>Forgot password?</p>
           </div>
-        </Form>
-      </div> */}
+        </div>
 
-      <Card />
+        <div className="login-box">
+          <button>{isLoginMode ? "Login" : "Register"}</button>
+        </div>
 
+        <div className={`login-auth ${isLoginMode ? "" : "hidden"}`}>
+          <p>or continue with</p>
+          <div className="login-choices">
+            <img src="/facebook.png" alt="" />
+            <img src="/google.png" alt="" />
+            <img src="/apple.png" alt="" />
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
