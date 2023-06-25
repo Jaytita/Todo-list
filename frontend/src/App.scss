@@ -1,15 +1,13 @@
 :root {
+  // login page
+  --button-hover: rgb(200, 200, 200);
+  --bg-right-side: rgb(5, 16, 37);
   --card-bg: rgb(107, 107, 107);
   --card-bg-active: rgb(118, 118, 118);
   --card-bg-completed: rgb(84, 84, 84);
   --text-primary: rgb(237, 237, 237);
   --text-secondary: rgb(218, 218, 218);
   --text-completed: rgb(154, 154, 154);
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
