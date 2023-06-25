@@ -1,5 +1,10 @@
-.App {
-  text-align: center;
+:root {
+  --card-bg: rgb(107, 107, 107);
+  --card-bg-active: rgb(118, 118, 118);
+  --card-bg-completed: rgb(84, 84, 84);
+  --text-primary: rgb(237, 237, 237);
+  --text-secondary: rgb(218, 218, 218);
+  --text-completed: rgb(154, 154, 154);
 }
 
 .App-logo {
