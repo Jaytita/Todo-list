@@ -1,7 +1,12 @@
 :root {
+  // global
+  --warning-red: rgb(246, 72, 72);
+  
   // login page
   --button-hover: rgb(200, 200, 200);
-  --bg-right-side: rgb(5, 16, 37);
+  --bg-right-side: rgb(5, 16, 37, 0.8);
+
+  //
   --card-bg: rgb(107, 107, 107);
   --card-bg-active: rgb(118, 118, 118);
   --card-bg-completed: rgb(84, 84, 84);
