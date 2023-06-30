@@ -1,0 +1,83 @@
+.card-component {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  width: 20em;
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+  border-radius: 0.7rem;
+  transition: all 0.2s;
+
+  &:hover {
+    background-color: var(--card-bg-active);
+    transition: all 0.2s;
+  }
+
+  &.completed {
+    background-color: var(--card-bg-completed);
+    color: var(--text-completed);
+    filter: brightness(0.9);
+  }
+
+  .card-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .card-checkbox {
+    width: 1.2rem;
+    height: 1.2rem;
+    border: none;
+    cursor: pointer;
+  }
+
+  .card-description {
+    display: flex;
+    flex-direction: column;
+
+    .card-header {
+      display: flex;
+      align-items: center;
+
+      &.completed {
+        text-decoration: line-through;
+      }
+
+      .card-name {
+        margin-right: 0.7rem;
+        font-size: 1.5rem;
+        font-weight: 600;
+      }
+
+      .card-due-date {
+        padding-left: 0.7rem;
+        border-left: 1px solid white;
+      }
+    }
+  }
+
+  .card-detail {
+    // color: var(--text-secondary);
+  }
+
+  .card-delete {
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    padding: 0.2rem;
+    border-radius: 1.2rem;
+
+    &:hover {
+      background-color: var(--card-bg);
+      // filter: brightness(0.9);
+    }
+
+    .anticon svg {
+      width: 1.2em;
+      height: 1.2em;
+    }
+  }
+}
