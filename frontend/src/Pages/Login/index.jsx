@@ -4,12 +4,17 @@ import './login.scss'
 import { Form, Input, Button, Divider, Modal, Space } from 'antd'
 import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
 import Lottie from 'lottie-react';
-import { useGoogleLogin, GoogleOAuthProvider } from '@react-oauth/google'
+import { useGoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
 import Card from '../../components/card';
+import CardModal from '../../Components/cardModal';
 import loadingLogin from '../../loading-login.json';
+
+import { useSelector, useDispatch } from 'react-redux';
+import { setVisible } from '../../redux/reducers/cardModalReducer';
 
 export default function Login() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [isLoginMode, setIsLoginMode] = useState(true);
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -24,7 +29,7 @@ export default function Login() {
     username: "",
     password: "",
   })
-  const [forgotPass, setForgotPass] = useState(false);
+  const modalVisible = useSelector(state => state.cardModal.visible);
 
   useEffect(() => {
     setDelayBlack(false);
@@ -70,6 +75,7 @@ export default function Login() {
       username: "",
       password: form.password ? "" : "Required",
     }));
+    dispatch(setVisible(true));
 
     if (form.email && form.password) {
       navigate("/task")
@@ -179,6 +185,8 @@ export default function Login() {
           </div>
         </div>
       </div>
+
+      <CardModal isVisible={modalVisible}/>
 
       {/* <Modal
         open={forgotPass}
