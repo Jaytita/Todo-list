@@ -19,11 +19,11 @@ export default function Login() {
     username: "",
     password: "",
   });
-  const [isFormValid, setFormIsValid] = useState({
-    email: true,
-    username: true,
-    password: true,
-  });
+  const [formErrMsg, setFormErrMsg] = useState({
+    email: "",
+    username: "",
+    password: "",
+  })
 
   useEffect(() => {
     setDelayBlack(false);
@@ -43,6 +43,16 @@ export default function Login() {
     }));
   }
 
+  const emailValidate = () => {
+    let emailErrMsg = "";
+    if (!form.email) {
+      emailErrMsg = "Required";
+    } else if (form.email && !/^\S+@\S+\.\S+$/.test(form.email)) {
+      emailErrMsg = "Wrong format";
+    }
+    return emailErrMsg;
+  }
+
   const LoginButton = () => {
 
     return (
@@ -53,30 +63,24 @@ export default function Login() {
   };
 
   const handleLogin = () => {
-    setFormIsValid((prevFormIsValid) => ({
+    setFormErrMsg((prevFormIsValid) => ({
       ...prevFormIsValid,
-      username: !!form.username,
-      password: !!form.password,
+      email: emailValidate(),
+      username: "",
+      password: form.password ? "" : "Required",
     }));
 
-    if (form.username && form.password) {
+    if (form.email && form.password) {
       navigate("/task")
     }
   }
 
   const handleRegister = () => {
-    let isValidEmail = true;
-    if (form.email && /^\S+@\S+\.\S+$/.test(form.email)) {
-      isValidEmail = "Wrong format";
-    } else {
-      isValidEmail = false;
-    }
-
-    setFormIsValid((prevFormIsValid) => ({
+    setFormErrMsg((prevFormIsValid) => ({
       ...prevFormIsValid,
-      email: isValidEmail,
-      username: !!form.username,
-      password: !!form.password,
+      email: emailValidate(),
+      username: form.username ? "" : "Required",
+      password: form.password ? "" : "Required",
     }));
   }
 
@@ -105,36 +109,34 @@ export default function Login() {
         </div>
 
         <div className="login-input">
-          <div className={`login-email ${isLoginMode ? "hidden" : ""}`}>
+          <div className="login-input-label">
+            <label htmlFor="email">Email</label>
+            <span className={`${formErrMsg.email ? "" : "hidden"}`}>{formErrMsg.email}</span>
+          </div>
+          <input
+            type="email"
+            placeholder="Email"
+            id="email"
+            onChange={(e) => handleFormChange(e)}
+          />
+
+          <div className={`login-username ${isLoginMode ? "hidden" : ""}`}>
             <div className="login-input-label">
-              <label htmlFor="email">Email</label>
-              <span className={`${isFormValid.email ? "hidden" : ""}`}>
-                {!form.email ? "Required" : isFormValid.email ? "" : "Wrong format"}
-              </span>
+              <label htmlFor="username">Username</label>
+              <span className={`${formErrMsg.username ? "" : "hidden"}`}>{formErrMsg.username}</span>
             </div>
             <input
-              type="email"
-              placeholder="Email"
-              id="email"
+              type="text"
+              placeholder="Username"
+              id="username"
+              maxLength={20}
               onChange={(e) => handleFormChange(e)}
             />
           </div>
 
           <div className="login-input-label">
-            <label htmlFor="username">Username</label>
-            <span className={`${isFormValid.username ? "hidden" : ""}`}>Required</span>
-          </div>
-          <input
-            type="text"
-            placeholder="Username"
-            id="username"
-            maxLength={20}
-            onChange={(e) => handleFormChange(e)}
-          />
-
-          <div className="login-input-label">
             <label htmlFor="password">Password</label>
-            <span className={`${isFormValid.password ? "hidden" : ""}`}>Required</span>
+            <span className={`${formErrMsg.password ? "" : "hidden"}`}>{formErrMsg.password}</span>
           </div>
           <div className="password-container">
             <input
