@@ -5,6 +5,8 @@ const port = process.env.PORT || 4040;
 const mongoose = require('mongoose');
 const uri = process.env.MONGODB_URI;
 
+app.use(express.json());
+
 //Connect MongoDB
 async function connect(){
     try{
@@ -14,9 +16,11 @@ async function connect(){
         console.error(error);
     }
 }
-
-//connect to database
 connect();
+
+//Database Router
+const usersRouter = require('./routes/users');
+app.use('/users', usersRouter);
 
 app.use('/',(req,res)=>{
     res.send('Hello Mailok');
