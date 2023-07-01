@@ -9,8 +9,9 @@ router.route('/').get((req,res)=>{
 
 router.route('/register').post((req,res)=>{
     const email = req.body.email;
+    const username = req.body.username;
     const password = req.body.password;
-    const newUser = new User({email, password,});
+    const newUser = new User({email, username, password,});
     newUser.save()
         .then(()=>res.json('Register successfully!'))
         .catch(err=>res.status(400).json('Error: '+err));
