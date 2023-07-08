@@ -202,6 +202,11 @@
           border-radius: 1.2em;
         }
       }
+
+      p:hover {
+        text-decoration: underline;
+        cursor: pointer;
+      }
     }
   }
 
@@ -284,6 +289,11 @@
     transition: all 0.7s ease;
   }
 }
+
+.ant-modal-content, .ant-modal-header {
+  background-color: var(--card-bg) !important;
+  color: var(--text-primary) !important;
+} 
 
 @media only screen and (max-width: 820px) {
   .login-right-side {

@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
-import { useNavigate, Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './login.scss'
-import { Form, Input, Button, Divider, Space } from 'antd'
+import { Form, Input, Button, Divider, Modal, Space } from 'antd'
 import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
 import Lottie from 'lottie-react';
 import { useGoogleLogin, GoogleOAuthProvider } from '@react-oauth/google'
 import Card from '../../components/card';
-import loadingLogin from '../../loading-login.json'
+import loadingLogin from '../../loading-login.json';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -24,6 +24,7 @@ export default function Login() {
     username: "",
     password: "",
   })
+  const [forgotPass, setForgotPass] = useState(false);
 
   useEffect(() => {
     setDelayBlack(false);
@@ -154,7 +155,7 @@ export default function Login() {
               <input type="checkbox" />
               <p>Remember me</p>
             </div>
-            <p>Forgot password?</p>
+            <p onClick={() => setForgotPass(true)}>Forgot password?</p>
           </div>
         </div>
 
@@ -178,6 +179,13 @@ export default function Login() {
           </div>
         </div>
       </div>
+
+      {/* <Modal
+        open={forgotPass}
+        title={"Forgot password"}
+        closable={true}
+        onCancel={() => setForgotPass(false)}
+      /> */}
     </div>
   )
 }
