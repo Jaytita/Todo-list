@@ -16,6 +16,11 @@
     visibility: hidden;
     opacity: 0;
     transition: all 0.3s ease-in-out;
+
+    .modal-container {
+      transform: scale(0);
+      transition: all 0.3s ease-in-out;
+    }
   }
 }
 
@@ -30,24 +35,27 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 1em;
   padding: 1em 2em;
-  background-color: var(--card-bg);
+  width: 640px;
+  background-color: var(--dark-bg);
   border-radius: 1.2em;
   z-index: 2;
+  transform: scale(1);
+  transition: all 0.3s ease-in-out;
 
   .modal-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 1em;
 
     h2 {
-      font-weight: 600;
+      font-weight: 500;
     }
 
     .anticon {
       padding: 0.5em;
-      background-color: var(--light-bg);
+      background-color: var(--card-bg);
       border-radius: 1em;
 
       &:hover {
@@ -56,10 +64,17 @@
     }
   }
 
+  .card-detail {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
   .modal-footer {
     display: flex;
     justify-content: flex-end;
     gap: 0.7em;
+    margin-top: 1.5em;
     width: 100%;
   }
 }

@@ -1,11 +1,13 @@
+import './login.scss';
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './login.scss'
-import { Form, Input, Button, Divider, Modal, Space } from 'antd'
+import { useNavigate, Navigate } from 'react-router-dom';
+import { useGoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
+
+import { Button, Divider, Form, Input, Space } from 'antd';
 import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
 import Lottie from 'lottie-react';
-import { useGoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
-import Card from '../../components/card';
+
+import Card from '../../Components/card';
 import CardModal from '../../Components/cardModal';
 import loadingLogin from '../../loading-login.json';
 
@@ -49,11 +51,11 @@ export default function Login() {
     }));
   }
 
-  const emailValidate = () => {
+  const emailValidate = (mail) => {
     let emailErrMsg = "";
-    if (!form.email) {
+    if (!mail) {
       emailErrMsg = "Required";
-    } else if (form.email && !/^\S+@\S+\.\S+$/.test(form.email)) {
+    } else if (mail && !/^\S+@\S+\.\S+$/.test(mail)) {
       emailErrMsg = "Wrong format";
     }
     return emailErrMsg;
@@ -71,11 +73,10 @@ export default function Login() {
   const handleLogin = () => {
     setFormErrMsg((prevFormIsValid) => ({
       ...prevFormIsValid,
-      email: emailValidate(),
+      email: emailValidate(form.email),
       username: "",
       password: form.password ? "" : "Required",
     }));
-    dispatch(setVisible(true));
 
     if (form.email && form.password) {
       navigate("/task")
@@ -85,10 +86,14 @@ export default function Login() {
   const handleRegister = () => {
     setFormErrMsg((prevFormIsValid) => ({
       ...prevFormIsValid,
-      email: emailValidate(),
+      email: emailValidate(form.email),
       username: form.username ? "" : "Required",
       password: form.password ? "" : "Required",
     }));
+  }
+
+  const handleForgotPass = () => {
+    emailValidate();
   }
 
   return(
@@ -118,7 +123,7 @@ export default function Login() {
         <div className="login-input">
           <div className="login-input-label">
             <label htmlFor="email">Email</label>
-            <span className={`${formErrMsg.email ? "" : "hidden"}`}>{formErrMsg.email}</span>
+            <span className={`input-label ${formErrMsg.email ? "" : "hidden"}`}>{formErrMsg.email}</span>
           </div>
           <input
             type="email"
@@ -130,7 +135,7 @@ export default function Login() {
           <div className={`login-username ${isLoginMode ? "hidden" : ""}`}>
             <div className="login-input-label">
               <label htmlFor="username">Username</label>
-              <span className={`${formErrMsg.username ? "" : "hidden"}`}>{formErrMsg.username}</span>
+              <span className={`input-label ${formErrMsg.username ? "" : "hidden"}`}>{formErrMsg.username}</span>
             </div>
             <input
               type="text"
@@ -143,7 +148,7 @@ export default function Login() {
 
           <div className="login-input-label">
             <label htmlFor="password">Password</label>
-            <span className={`${formErrMsg.password ? "" : "hidden"}`}>{formErrMsg.password}</span>
+            <span className={`input-label ${formErrMsg.password ? "" : "hidden"}`}>{formErrMsg.password}</span>
           </div>
           <div className="password-container">
             <input
@@ -161,7 +166,7 @@ export default function Login() {
               <input type="checkbox" />
               <p>Remember me</p>
             </div>
-            <p onClick={() => setForgotPass(true)}>Forgot password?</p>
+            <p id="forgot-password" onClick={() => dispatch(setVisible(true))}>Forgot password?</p>
           </div>
         </div>
 
@@ -186,7 +191,12 @@ export default function Login() {
         </div>
       </div>
 
-      <CardModal isVisible={modalVisible}/>
+      <CardModal
+        isVisible={modalVisible}
+        title={"Forgot password"}
+        emailValidate={emailValidate}
+        onConfirm={handleForgotPass}
+      />
 
       {/* <Modal
         open={forgotPass}
