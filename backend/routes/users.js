@@ -17,4 +17,17 @@ router.route('/register').post((req,res)=>{
         .catch(err=>res.status(400).json('Error: '+err));
 });
 
+router.route('/login').post((req,res)=>{
+    const{email,password} = req.body;
+    User.findOne({email:email})
+        .then(user=>{
+            if(password === user.password){
+                res.send({message:"Login sucessfully!",user:user})
+            }else{
+                res.send({message:"Wrong credentials!"})
+            }
+        })
+        .catch(err=> res.status(400).send({message:"Wrong credentials!"}));
+});
+
 module.exports = router;
