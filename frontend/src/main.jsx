@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import store from './redux/store';
 import './index.scss';
 import App from './App';
+import ResetPass from './Pages/ResetPass';
 import Task from './Pages/FEMTask';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -14,6 +15,7 @@ root.render(
       <BrowserRouter>
         <Routes>
           <Route exact path="/" element={<App />} />
+          <Route exact path="/reset-pass" element={<ResetPass />} />
           <Route exact path="/task" element={<Task />} />
         </Routes>
       </BrowserRouter>

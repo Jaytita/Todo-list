@@ -7,7 +7,7 @@ import MyButton from '../myButton';
 import { useSelector, useDispatch } from 'react-redux';
 import { setVisible } from '../../redux/reducers/cardModalReducer';
 
-const CardModal = ({ isVisible=true, closable=true, bgClosable=true, title, content, footer=true, emailValidate, handleForgotPass }) => {
+const CardModal = ({ isVisible=true, position, closable=true, bgClosable=true, title, content, footer=true, emailValidate, handleForgotPass }) => {
   const dispatch = useDispatch();
   const visible = useSelector(state => state.cardModal.visible);
 
@@ -23,7 +23,7 @@ const CardModal = ({ isVisible=true, closable=true, bgClosable=true, title, cont
       <div className="modal-background" onClick={bgClosable && handleCloseModal}>
       </div>
 
-      <div className="modal-container">
+      <div className="modal-container" style={visible ? {} : { position: "absolute", transform: `translate(calc(${position?.[1]}/50%)px), calc(50% - ${position?.[0]}px))` }}>
         <span className="modal-header">
           <h2>{title}</h2>
           {closable && <CloseOutlined onClick={handleCloseModal}/>}
@@ -39,8 +39,7 @@ const CardModal = ({ isVisible=true, closable=true, bgClosable=true, title, cont
             <input
               type="email"
               placeholder="Email"
-              id="email"
-              required={true}
+              id="email-forgot"
               onChange={(e) => {
                 setUserMail(e.target.value)
                 setCheckUserMail(false)

@@ -1,5 +1,5 @@
-import './login.scss';
-import { useState, useEffect } from 'react';
+import './style.scss';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate, Navigate } from 'react-router-dom';
 import { useGoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
 
@@ -17,6 +17,7 @@ import { setVisible } from '../../redux/reducers/cardModalReducer';
 export default function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const forgotPassRef = useRef();
 
   const [isLoginMode, setIsLoginMode] = useState(true);
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -96,6 +97,13 @@ export default function Login() {
     emailValidate();
   }
 
+  const getPosition = (element) => {
+    if (element.current) {
+      const { top, left } = element.current.getBoundingClientRect();
+      return [ Math.round(top), Math.round(left) ];
+    }
+  };
+
   return(
     <div className="login-container">
       <div className="login-left-side">
@@ -166,7 +174,7 @@ export default function Login() {
               <input type="checkbox" />
               <p>Remember me</p>
             </div>
-            <p id="forgot-password" onClick={() => dispatch(setVisible(true))}>Forgot password?</p>
+            <p ref={forgotPassRef} id="forgot-password" onClick={() => dispatch(setVisible(true))}>Forgot password?</p>
           </div>
         </div>
 
@@ -196,6 +204,7 @@ export default function Login() {
         title={"Forgot password"}
         emailValidate={emailValidate}
         onConfirm={handleForgotPass}
+        position={getPosition(forgotPassRef)}
       />
 
       {/* <Modal

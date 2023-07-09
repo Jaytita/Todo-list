@@ -1,0 +1,178 @@
+.reset-pass {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2em;
+  padding: 2em 3em;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--bg-right-side);
+  color: white;
+  backdrop-filter: blur(10px);
+  overflow-x: auto;
+
+  .reset-pass-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2em;
+    width: 50%;
+    border: 2px solid var(--text-primary);
+    border-radius: 1em;
+    box-shadow: 0px 5px 50px rgba(159, 159, 159, 0.3);
+  }
+
+  button {
+    padding: 0.7em 1.2em;
+    width: 100%;
+    background-color: white;
+    border: none;
+    border-radius: 2em;
+    font-size: 1em;
+    font-weight: 500;
+    transition: all 1s ease;
+    cursor: pointer;
+
+    &:hover {
+      margin-top: 0;
+      background-color: var(--button-hover);
+      transition: all 1s ease;
+    }
+  }
+}
+
+.reset-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1.5em;
+  width: 100%;
+  font-size: 1.5em;
+}
+
+.reset-input {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  input {
+    margin-bottom: 2em;
+  }
+
+  .login-input-label {
+    display: flex;
+    justify-content: space-between;
+
+    input {
+      margin-bottom: 2em;
+    }
+  }
+
+  label {
+    margin-bottom: 0.2em;
+  }
+
+  .password-container {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 2em;
+
+    input {
+      width: 100%;
+      margin-bottom: 0;
+    }
+
+    .anticon {
+      position: absolute;
+      margin-right: 1.2em;
+    }
+  }
+
+  .login-remember {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1em;
+    width: 100%;
+    transition: all 0.7s ease;
+
+    &.hidden {
+      max-height: 0;
+      transform: scale(1);
+      opacity: 0;
+      transition: all 0.7s ease;
+    }
+
+    .login-checkbox {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      input[type="checkbox"] {
+        margin: 0 0.5em 0 0;
+        width: 1.2em;
+        height: 1.2em;
+        border-radius: 1.2em;
+      }
+    }
+
+    p:hover {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
+}
+
+.reset-box {
+  margin-top: 1em;
+  width: 100%;
+  transition: all 1s ease;
+
+  button {
+    padding: 0.7em 1.2em;
+    width: 100%;
+    background-color: white;
+    border: none;
+    border-radius: 2em;
+    font-size: 1em;
+    font-weight: 500;
+    transition: all 1s ease;
+    cursor: pointer;
+
+    &:hover {
+      margin-top: 0;
+      background-color: var(--button-hover);
+      transition: all 1s ease;
+    }
+  }
+}
+
+input {
+  padding: 0.7em 1.2em;
+  height: 2.8em;
+  background: transparent;
+  border: 1px solid white;
+  border-radius: 2em;
+  font-size: 1em;
+  color: white;
+
+  &:focus {
+    outline-width: 0;
+  }
+}
+
+.input-label {
+  margin-bottom: 0.2em;
+  color: var(--warning-red);
+  max-height: 4em;
+  transform: scale(1);
+  transition: all 0.2s ease;
+
+  &.hidden {
+    visibility: hidden;
+  }
+}
