@@ -7,7 +7,7 @@ import MyButton from '../myButton';
 import { useSelector, useDispatch } from 'react-redux';
 import { setVisible } from '../../redux/reducers/cardModalReducer';
 
-const CardModal = ({ isVisible=true, position, closable=true, bgClosable=true, title, content, footer=true, emailValidate, handleForgotPass }) => {
+const CardModal = ({ isVisible=true, position, closable=true, bgClosable=true, title, content, footer=true, emailValidate, handleForgotPass, onConfirm }) => {
   const dispatch = useDispatch();
   const visible = useSelector(state => state.cardModal.visible);
 
@@ -52,12 +52,12 @@ const CardModal = ({ isVisible=true, position, closable=true, bgClosable=true, t
           <div className="modal-footer">
             <MyButton
               text="Cancel"
-              funcProps={() => dispatch(setVisible(false))}
+              onClick={() => dispatch(setVisible(false))}
             />
             <MyButton
               text="Confirm"
               primary={true}
-              funcProps={() => {
+              onClick={() => {
                 setCheckUserMail(true)
                 // handleForgotPass
               }}
