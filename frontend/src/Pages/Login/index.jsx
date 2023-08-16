@@ -7,12 +7,12 @@ import { Button, Divider, Form, Input, Space } from 'antd';
 import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
 import Lottie from 'lottie-react';
 
-import Card from '../../Components/card';
-import CardModal from '../../Components/cardModal';
+import Card from '@Components/card';
+import CardModal from '@Components/cardModal';
 import loadingLogin from '../../loading-login.json';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { setVisible } from '../../redux/reducers/cardModalReducer';
+import { setVisible } from '@redux/reducers/cardModalReducer';
 
 export default function Login() {
   const navigate = useNavigate();

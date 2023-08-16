@@ -260,8 +260,10 @@
         border-radius: 1.2em;
       }
     }
+  }
 
-    p:hover {
+  #forgot-password {
+    &:hover {
       text-decoration: underline;
       cursor: pointer;
     }

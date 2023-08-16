@@ -1,11 +1,12 @@
 import './style.scss';
 
-const MyButton = ({ primary=false, text="", funcProps }) => {
+const MyButton = ({ primary=false, text="", onClick, ...props }) => {
 
   return (
     <button
       className={`my-button ${primary ? "primary" : ""}`}
-      onClick={funcProps}
+      onClick={onClick}
+      props={props}
     >
       {text}
     </button>

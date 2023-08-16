@@ -7,7 +7,7 @@ import MyButton from '../myButton';
 import { useSelector, useDispatch } from 'react-redux';
 import { setVisible } from '../../redux/reducers/cardModalReducer';
 
-const CardModal = ({ isVisible=true, position, closable=true, bgClosable=true, title, content, footer=true, emailValidate, handleForgotPass }) => {
+const CardModal = ({ isVisible=true, position, closable=true, bgClosable=true, title, content, footer=true, emailValidate, handleForgotPass, onConfirm }) => {
   const dispatch = useDispatch();
   const visible = useSelector(state => state.cardModal.visible);
 
@@ -23,7 +23,7 @@ const CardModal = ({ isVisible=true, position, closable=true, bgClosable=true, t
       <div className="modal-background" onClick={bgClosable && handleCloseModal}>
       </div>
 
-      <div className="modal-container" style={visible ? {} : { position: "absolute", transform: `translate(calc(${position?.[1]}/50%)px), calc(50% - ${position?.[0]}px))` }}>
+      <div className={`modal-container`}>
         <span className="modal-header">
           <h2>{title}</h2>
           {closable && <CloseOutlined onClick={handleCloseModal}/>}
@@ -33,7 +33,7 @@ const CardModal = ({ isVisible=true, position, closable=true, bgClosable=true, t
         </div> */}
         {title === "Forgot password" && (
           <>
-            <div className="login-input-label" style={{ display: "flex", justifyContent: "flex-end", width: "100%"}}>
+            <div className="input-label" style={{ display: "flex", justifyContent: "flex-end", width: "100%"}}>
               <span className={`input-label ${checkUserMail ? "" : "hidden"}`}>{emailValidate(userMail)}</span>
             </div> 
             <input
@@ -52,12 +52,12 @@ const CardModal = ({ isVisible=true, position, closable=true, bgClosable=true, t
           <div className="modal-footer">
             <MyButton
               text="Cancel"
-              funcProps={() => dispatch(setVisible(false))}
+              onClick={() => dispatch(setVisible(false))}
             />
             <MyButton
               text="Confirm"
               primary={true}
-              funcProps={() => {
+              onClick={() => {
                 setCheckUserMail(true)
                 // handleForgotPass
               }}
