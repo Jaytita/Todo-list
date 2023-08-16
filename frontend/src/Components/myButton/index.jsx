@@ -1,4 +1,5 @@
 import './style.scss';
+import PropTypes from 'prop-types';
 
 const MyButton = ({ primary=false, text="", onClick, ...props }) => {
 
@@ -6,7 +7,7 @@ const MyButton = ({ primary=false, text="", onClick, ...props }) => {
     <button
       className={`my-button ${primary ? "primary" : ""}`}
       onClick={onClick}
-      props={props}
+      {...props}
     >
       {text}
     </button>
@@ -14,3 +15,9 @@ const MyButton = ({ primary=false, text="", onClick, ...props }) => {
 }
 
 export default MyButton
+
+MyButton.propTypes = {
+  primary: PropTypes.bool,
+  text: PropTypes.string,
+  onClick: PropTypes.func,
+}

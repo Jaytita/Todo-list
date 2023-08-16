@@ -1,0 +1,37 @@
+.textfield-main {
+  .textfield-rounded {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    input {
+      margin-bottom: 1em;
+    }
+  
+    .textfield-end-icon {
+      position: absolute;
+      top: 0;
+      right: 0;
+      transform: translate(-1.2em, 45%);
+    }
+  }
+
+  
+  .login-input-label {
+    display: flex;
+    justify-content: space-between;
+
+    .input-label {
+      margin-bottom: 0.2em;
+      color: var(--warning-red);
+      max-height: 4em;
+      transform: scale(1);
+      transition: all 0.2s ease;
+    
+      &.hidden {
+        visibility: hidden;
+      }
+    }
+  }
+}

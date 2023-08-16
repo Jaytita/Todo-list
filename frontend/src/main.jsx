@@ -1,3 +1,4 @@
+import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import { Provider } from 'react-redux';
@@ -13,9 +14,9 @@ root.render(
     <Provider store={store}> {/* Wrap the App component with Provider */}
       <BrowserRouter>
         <Routes>
-          <Route exact path="/" element={<App />} />
-          <Route exact path="/reset-pass" element={<ResetPass />} />
-          <Route exact path="/task" element={<Task />} />
+          <Route path="/" element={<App />} />
+          <Route path="/reset-pass" element={<ResetPass />} />
+          <Route path="/task" element={<Task />} />
         </Routes>
       </BrowserRouter>
     </Provider>

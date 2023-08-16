@@ -1,11 +1,11 @@
-import './style.scss';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './style.scss';
 
-import { Button, Divider, Form, Input, Space } from 'antd';
 import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
+import Textfield from '@Components/textfield';
 
-export default function ResetPass() {
+const ResetPass = () => {
   const navigate = useNavigate();
 
   const [isLoginMode, setIsLoginMode] = useState(true);
@@ -51,7 +51,6 @@ export default function ResetPass() {
     }));
   }
 
-
   return(
     <div className="reset-pass">
       <div className="reset-pass-container">
@@ -60,47 +59,34 @@ export default function ResetPass() {
         </div>
 
         <div className="reset-input">
-          <div className="login-input-label">
-            <label htmlFor="email">Email</label>
-            <span className={`input-label ${formErrMsg.email ? "" : "hidden"}`}>{formErrMsg.email}</span>
-          </div>
-          <input
+          <Textfield
             type="email"
+            label="Email"
             placeholder="Email"
             id="email"
             onChange={(e) => handleFormChange(e)}
+            errorMsg={formErrMsg.email}
           />
 
-          <div className="login-input-label">
-            <label htmlFor="password">New Password</label>
-            <span className={`input-label ${formErrMsg.password ? "" : "hidden"}`}>{formErrMsg.password}</span>
-          </div>
-          <div className="password-container">
-            <input
-              type={`${passwordVisible ? "text" : "password"}`}
-              placeholder="Password"
-              id="new-password"
-              maxLength={20}
-              onChange={(e) => handleFormChange(e)}
-            />
-            {passwordVisible ? <EyeInvisibleOutlined onClick={handleShowPassword}  /> : <EyeOutlined onClick={handleShowPassword} />}
-          </div>
+          <Textfield
+            type={`${passwordVisible ? "text" : "password"}`}
+            label="Password"
+            placeholder="Password"
+            id="password"
+            onChange={(e) => handleFormChange(e)}
+            errorMsg={formErrMsg.password}
+            endIcon={passwordVisible ? <EyeInvisibleOutlined onClick={handleShowPassword}  /> : <EyeOutlined onClick={handleShowPassword} />}
+          />
 
-          <div className="login-input-label">
-            <label htmlFor="password">Confirm Password</label>
-            <span className={`input-label ${formErrMsg.password ? "" : "hidden"}`}>{formErrMsg.password}</span>
-          </div>
-          <div className="password-container">
-            <input
-              type={`${passwordVisible ? "text" : "password"}`}
-              placeholder="Password"
-              id="confirm-password"
-              maxLength={20}
-              onChange={(e) => handleFormChange(e)}
-            />
-            {passwordVisible ? <EyeInvisibleOutlined onClick={handleShowPassword}  /> : <EyeOutlined onClick={handleShowPassword} />}
-          </div>
-
+          <Textfield
+            type={`${passwordVisible ? "text" : "password"}`}
+            label="Confirm Password"
+            placeholder="Password"
+            id="confirm-password"
+            onChange={(e) => handleFormChange(e)}
+            errorMsg={formErrMsg.password}
+            endIcon={passwordVisible ? <EyeInvisibleOutlined onClick={handleShowPassword}  /> : <EyeOutlined onClick={handleShowPassword} />}
+          />
         <div className="reset-box">
           <button>Reset</button>
         </div>
@@ -110,3 +96,5 @@ export default function ResetPass() {
     </div>
   )
 }
+
+export default ResetPass 

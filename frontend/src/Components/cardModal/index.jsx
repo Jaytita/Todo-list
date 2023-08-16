@@ -1,5 +1,6 @@
 import './style.scss'
 import { useState } from 'react'
+import PropTypes from 'prop-types';
 
 import { CloseOutlined } from "@ant-design/icons"
 import MyButton from '../myButton';
@@ -7,7 +8,7 @@ import MyButton from '../myButton';
 import { useSelector, useDispatch } from 'react-redux';
 import { setVisible } from '../../redux/reducers/cardModalReducer';
 
-const CardModal = ({ isVisible=true, position, closable=true, bgClosable=true, title, content, footer=true, emailValidate, handleForgotPass, onConfirm }) => {
+const CardModal = ({ position, closable=true, bgClosable=true, title, content, footer=true, emailValidate, handleForgotPass, onConfirm }) => {
   const dispatch = useDispatch();
   const visible = useSelector(state => state.cardModal.visible);
 
@@ -71,3 +72,15 @@ const CardModal = ({ isVisible=true, position, closable=true, bgClosable=true, t
 }
 
 export default CardModal
+
+CardModal.propTypes = {
+  position: PropTypes.array,
+  closable: PropTypes.bool,
+  bgClosable: PropTypes.bool,
+  title: PropTypes.string,
+  content: PropTypes.string,
+  footer: PropTypes.bool,
+  emailValidate: PropTypes.func,
+  handleForgotPass: PropTypes.func,
+  onConfirm: PropTypes.func,
+}

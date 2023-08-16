@@ -1,23 +1,23 @@
+import { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './style.scss';
-import { useState, useEffect, useRef } from 'react';
-import { useNavigate, Navigate } from 'react-router-dom';
-import { useGoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
 
-import { Button, Divider, Form, Input, Space } from 'antd';
 import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
 import Lottie from 'lottie-react';
 
-import Card from '@Components/card';
-import CardModal from '@Components/cardModal';
 import loadingLogin from '../../loading-login.json';
 
-import { useSelector, useDispatch } from 'react-redux';
+import Textfield from '@Components/textfield';
 import { setVisible } from '@redux/reducers/cardModalReducer';
+import { Modal } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
 
-export default function Login() {
-  const navigate = useNavigate();
+const Login = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const forgotPassRef = useRef();
+
+  const modalVisible = useSelector((state) => state.cardModal.visible);
 
   const [isLoginMode, setIsLoginMode] = useState(true);
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -32,7 +32,6 @@ export default function Login() {
     username: "",
     password: "",
   })
-  const modalVisible = useSelector(state => state.cardModal.visible);
 
   useEffect(() => {
     setDelayBlack(false);
@@ -40,6 +39,10 @@ export default function Login() {
       setDelayBlack(true);
     }, 300);
   }, [isLoginMode])
+
+  const handleOpenCloseModal = () => {
+    dispatch(setVisible(!modalVisible));
+  };
 
   const handleShowPassword = () => {
     setPasswordVisible(!passwordVisible);
@@ -62,15 +65,6 @@ export default function Login() {
     return emailErrMsg;
   }
 
-  const LoginButton = () => {
-
-    return (
-      <Button size="large" shape="round">
-        Login With Google
-      </Button>
-    );
-  };
-
   const handleLogin = () => {
     setFormErrMsg((prevFormIsValid) => ({
       ...prevFormIsValid,
@@ -79,7 +73,7 @@ export default function Login() {
       password: form.password ? "" : "Required",
     }));
 
-    if (form.email && form.password) {
+    if (emailValidate(form.email) === "" && form.password) {
       navigate("/task")
     }
   }
@@ -129,45 +123,34 @@ export default function Login() {
         </div>
 
         <div className="login-input">
-          <div className="login-input-label">
-            <label htmlFor="email">Email</label>
-            <span className={`input-label ${formErrMsg.email ? "" : "hidden"}`}>{formErrMsg.email}</span>
-          </div>
-          <input
+          <Textfield
             type="email"
+            label="Email"
             placeholder="Email"
             id="email"
             onChange={(e) => handleFormChange(e)}
+            errorMsg={formErrMsg.email}
           />
-
           <div className={`login-username ${isLoginMode ? "hidden" : ""}`}>
-            <div className="login-input-label">
-              <label htmlFor="username">Username</label>
-              <span className={`input-label ${formErrMsg.username ? "" : "hidden"}`}>{formErrMsg.username}</span>
-            </div>
-            <input
-              type="text"
+            <Textfield
+              label="Username"
               placeholder="Username"
               id="username"
               maxLength={20}
               onChange={(e) => handleFormChange(e)}
+              errorMsg={formErrMsg.username}
             />
           </div>
-
-          <div className="login-input-label">
-            <label htmlFor="password">Password</label>
-            <span className={`input-label ${formErrMsg.password ? "" : "hidden"}`}>{formErrMsg.password}</span>
-          </div>
-          <div className="password-container">
-            <input
-              type={`${passwordVisible ? "text" : "password"}`}
-              placeholder="Password"
-              id="password"
-              maxLength={20}
-              onChange={(e) => handleFormChange(e)}
-            />
-            {passwordVisible ? <EyeInvisibleOutlined onClick={handleShowPassword}  /> : <EyeOutlined onClick={handleShowPassword} />}
-          </div>
+          <Textfield
+            type={`${passwordVisible ? "text" : "password"}`}
+            label="Password"
+            placeholder="Password"
+            id="password"
+            maxLength={20}
+            onChange={(e) => handleFormChange(e)}
+            errorMsg={formErrMsg.password}
+            endIcon={passwordVisible ? <EyeInvisibleOutlined onClick={handleShowPassword}  /> : <EyeOutlined onClick={handleShowPassword} />}
+          />
 
           <div className={`login-remember ${isLoginMode ? "" : "hidden"}`}>
             <div className="login-checkbox">
@@ -191,28 +174,36 @@ export default function Login() {
             <div className="login-choices-logo">
               <img src="/google.png" alt="google" id="google" />
             </div>
-            <div className="login-choices-logo">
-              <img src="/apple.png" alt="apple" id="apple" />
-            </div>
-            
           </div>
         </div>
       </div>
 
-      <CardModal
-        isVisible={modalVisible}
+      {/* <CardModal
         title={"Forgot password"}
         emailValidate={emailValidate}
         onConfirm={handleForgotPass}
         position={getPosition(forgotPassRef)}
-      />
-
-      {/* <Modal
-        open={forgotPass}
-        title={"Forgot password"}
-        closable={true}
-        onCancel={() => setForgotPass(false)}
       /> */}
+      <Modal
+        centered
+        title={<span style={{color: "white"}}>Forgot password</span>}
+        mask
+        open={modalVisible}
+        onOk={handleForgotPass}
+        onCancel={handleOpenCloseModal}
+      >
+        <Textfield
+          type="email"
+          label="Email"
+          placeholder={"Email"}
+          id="email"
+          onChange={(e) => handleFormChange(e)}
+          errorMsg={formErrMsg.email}
+          style={{ color: "white" }}
+        />
+      </Modal>
     </div>
   )
 }
+
+export default Login

@@ -1,14 +1,12 @@
-import { useEffect, useState } from 'react'
-import './style.scss'
+import { useEffect, useState } from 'react';
+import './style.scss';
 // import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { 
-  WbSunny,
+import CopyBar from '@Components/sidebar_old/CopyBar';
+import {
   Nightlight,
-  Close,
+  WbSunny
 } from '@mui/icons-material';
-import Sidebar from '../../Components/Sidebar';
-import CopyBar from '../../Components/CopyBar';
-import { Form, Input, Button, Divider } from 'antd'
+import { Button, Divider, Form, Input } from 'antd';
 
 export default function Task() {
   // Dark mode
