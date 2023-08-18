@@ -18,6 +18,7 @@ export const projectName = "MLD";
 export type TaskDataProps = {
   "task-id": number;
   "title": string;
+  "detail": string;
   "status": number;
   "point": number;
   "priority": number;
@@ -26,23 +27,23 @@ export type TaskDataProps = {
 
 export const data: { [key: number]: TaskDataProps[] } = {
   1: [
-    {"task-id": 1, "title": "Cupcake", "status": 0, "point": 1, "priority": 1, "assignee": "Ken", },
-    {"task-id": 2, "title": "Donut", "status": 1, "point": 2, "priority": 2, "assignee": "Ken", },
-    {"task-id": 3, "title": "Eclair", "status": 2, "point": 1.5, "priority": 3, "assignee": "Ken", },
-    {"task-id": 4, "title": "Froyo", "status": 3, "point": 3, "priority": 4, "assignee": "Ken", },
-    {"task-id": 5, "title": "Gingerbread", "status": 4, "point": 5, "priority": 5, "assignee": "Ken", },
-    {"task-id": 6, "title": "Honeycomb", "status": 5, "point": 100, "priority": 0, "assignee": "Ken", },
-    {"task-id": 7, "title": "Ice Cream Sandwich", "status": 1, "point": 0.5, "priority": 3, "assignee": "Ken", },
-    {"task-id": 8, "title": "Jelly Bean", "status": 1, "point": 1, "priority": 3, "assignee": "Ken", },
-    {"task-id": 9, "title": "KitKat", "status": 4, "point": 0.25, "priority": 3, "assignee": "Ken", },
-    {"task-id": 10, "title": "Lollipop", "status": 0, "point": 1, "priority": 3, "assignee": "Ken", },
+    {"task-id": 1, "title": "Cupcake", "detail": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa explicabo rerum voluptas optio corrupti quam saepe soluta accusamus, aperiam numquam nihil incidunt tempore blanditiis! Voluptates animi illo debitis incidunt expedita.", "status": 0, "point": 1, "priority": 1, "assignee": "Ken", },
+    {"task-id": 2, "title": "Donut", "detail": "dolor sit", "status": 1, "point": 2, "priority": 2, "assignee": "Ken", },
+    {"task-id": 3, "title": "Eclair", "detail": "amet consectetur", "status": 2, "point": 1.5, "priority": 3, "assignee": "Ken", },
+    {"task-id": 4, "title": "Froyo", "detail": "adipisicing elit.", "status": 3, "point": 3, "priority": 4, "assignee": "Ken", },
+    {"task-id": 5, "title": "Gingerbread", "detail": "Alias id dolor", "status": 4, "point": 5, "priority": 5, "assignee": "Ken", },
+    {"task-id": 6, "title": "Honeycomb", "detail": "voluptatem culpa error.", "status": 5, "point": 100, "priority": 0, "assignee": "Ken", },
+    {"task-id": 7, "title": "Ice Cream Sandwich", "detail": "Asperiores veniam", "status": 1, "point": 0.5, "priority": 3, "assignee": "Ken", },
+    {"task-id": 8, "title": "Jelly Bean", "detail": "facilis incidunt", "status": 1, "point": 1, "priority": 3, "assignee": "Ken", },
+    {"task-id": 9, "title": "KitKat", "detail": "dignissimos nihil", "status": 4, "point": 0.25, "priority": 3, "assignee": "Ken", },
+    {"task-id": 10, "title": "Lollipop", "detail": "amet vel corrupti", "status": 0, "point": 1, "priority": 3, "assignee": "Ken", },
   ],
   2: [
-    {"task-id": 11, "title": "Marshmallow", "status": 0, "point": 1, "priority": 3, "assignee": "Ken", },
-    {"task-id": 12, "title": "Nougat", "status": 0, "point": 1, "priority": 3, "assignee": "Ken", },
-    {"task-id": 13, "title": "Oreo", "status": 0, "point": 1, "priority": 3, "assignee": "Ken", },
-    {"task-id": 14, "title": "Pie", "status": 0, "point": 1, "priority": 3, "assignee": "Ken", },
-    {"task-id": 15, "title": "Quince Tart", "status": 0, "point": 1, "priority": 3, "assignee": "Ken", },
+    {"task-id": 11, "title": "Marshmallow", "detail": "at blanditiis animi,", "status": 0, "point": 1, "priority": 3, "assignee": "Ken", },
+    {"task-id": 12, "title": "Nougat", "detail": "velit consequuntur,", "status": 0, "point": 1, "priority": 3, "assignee": "Ken", },
+    {"task-id": 13, "title": "Oreo", "detail": "laboriosam voluptates.", "status": 0, "point": 1, "priority": 3, "assignee": "Ken", },
+    {"task-id": 14, "title": "Pie", "detail": "Lorem ipsum dolor sit amet, consectetur adipisicing elit.", "status": 0, "point": 1, "priority": 3, "assignee": "Ken", },
+    {"task-id": 15, "title": "Quince Tart", "detail": "Exercitationem itaque ab voluptate sapiente suscipit expedita labore, aliquam officia quibusdam a beatae omnis corporis cum modi sed possimus explicabo autem eveniet!", "status": 0, "point": 1, "priority": 3, "assignee": "Ken", },
   ],
 }
 
