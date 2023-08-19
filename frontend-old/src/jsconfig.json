@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "checkJs": true,
+    "jsx": "react-jsx",
+    "paths": {
+      "@Components/*": ["Components/*"],
+      "@Pages/*": ["Pages/*"],
+      "@redux/*": ["redux/*"],
+    },
+  }
+}
