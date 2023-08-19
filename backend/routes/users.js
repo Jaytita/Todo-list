@@ -41,9 +41,10 @@ router.route('/forgotpassword').post(async (req, res) => {
         // if (error) return res.status(400).send(error.details[0].message);
 
         const user = await User.findOne({ email: req.body.email });
-        if (!user)
+        if (!user){
             return res.status(400).send("user with given email doesn't exist");
-
+        }
+        
         let token = await Token.findOne({ userId: user._id });
         if (!token) {
             token = await new Token({
