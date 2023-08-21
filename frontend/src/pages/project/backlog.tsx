@@ -4,7 +4,7 @@ import { setIsCardModalOpen } from '@redux/reducers/globalReducer';
 import { RootState } from '@redux/store/reducers';
 import { TaskDataProps, data, pointBadge, priorityBadge, projectName, statusBadge } from '@src/utils';
 import type { CollapseProps } from 'antd';
-import { Collapse, ConfigProvider, Modal, theme } from 'antd';
+import { Collapse, ConfigProvider, Modal, Typography, theme } from 'antd';
 import { Fragment, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -15,6 +15,7 @@ interface BacklogProps {
 const Backlog: React.FC<BacklogProps> = ({ isDarkMode }) => {
   const { defaultAlgorithm, darkAlgorithm } = theme;
   const dispatch = useDispatch();
+  const { Text } = Typography;
   const isCardModalOpen = useSelector((state: RootState) => state.globalState.isCardModalOpen);
 
   const [clickedCard, setClickedCard] = useState<TaskDataProps | null>(null);
@@ -71,7 +72,9 @@ const Backlog: React.FC<BacklogProps> = ({ isDarkMode }) => {
           </div>
           <div className="flex justify-between items-center">
             <div className="">
-              {projectName}-{clickedCard?.["task-id"]}
+              <Text ellipsis>
+                {projectName}-{clickedCard?.["task-id"]}
+              </Text>
             </div>
             <div className="flex justify-between items-center gap-1">
               {pointBadge(clickedCard?.["point"] || 3)}

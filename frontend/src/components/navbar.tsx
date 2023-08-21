@@ -9,7 +9,6 @@ const Navbar: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isLogin = useSelector((state: RootState) => state.globalState.isLogin);
-  console.log(isLogin)
 
   const handleLogout = () => {
     dispatch(setIsLogin(false))
@@ -17,14 +16,14 @@ const Navbar: React.FC = () => {
   }
 
   return (
-    <div className="sticky flex justify-between items-center px-8 py-2 w-full">
+    <div className="sticky flex justify-between items-center px-4 py-2 w-full">
       <a className="" href="/">Logo</a>
-      <ul className="flex justify-between items-center gap-6">
+      <ul className="flex justify-between items-center md:gap-6 sm:gap-4">
         <li>
-          <a className="px-4 py-2 bg-zinc-700 rounded border-white text-white hover:brightness-90" href="/project">Projects</a>
+          <a className="md:px-4 sm:px-2 py-2 bg-zinc-700 rounded border-white text-white hover:brightness-90" href="/project">Projects</a>
         </li>
         <li>
-          <a className="px-4 py-2 bg-zinc-700 rounded border-white text-white hover:brightness-90" href="/project/backlog">Backlog</a>
+          <a className="md:px-4 sm:px-2 py-2 bg-zinc-700 rounded border-white text-white hover:brightness-90" href="/project/backlog">Backlog</a>
         </li>
         <li>
           <MyButton text="Logout" onClick={handleLogout} startIcon={<LogoutOutlined />}/>

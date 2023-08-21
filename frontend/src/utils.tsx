@@ -11,8 +11,8 @@ export const emailValidate = (mail: string) => {
 }
 
 export const agileProgress = ["To do", "In Progress", "Merge Request", "Ready to Test", "Testing", "Done"];
-
 export const projectName = "MLD";
+export const currentSprint = 1;
 
 // Mock data
 export type TaskDataProps = {
