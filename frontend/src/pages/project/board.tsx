@@ -1,10 +1,11 @@
-import { DownOutlined } from '@ant-design/icons';
 import CardTask from '@components/cardTask';
+import MyButton from '@components/myButton';
 import Navbar from '@components/navbar';
-import { setIsCardModalOpen } from '@redux/reducers/globalReducer';
+import TaskModal from '@components/taskModal';
+import { setCurrentSprint, setIsCardModalOpen } from '@redux/reducers/globalReducer';
 import { RootState } from '@redux/store/reducers';
-import { TaskDataProps, agileProgress, currentSprint, data, pointBadge, priorityBadge, projectName, statusBadge } from '@src/utils';
-import { Card, Col, ConfigProvider, Divider, Dropdown, Modal, Row, Space, theme } from 'antd';
+import { TaskDataProps, agileProgress, allSprint, data, projectName, statusBadge } from '@src/utils';
+import { Card, Col, ConfigProvider, Row, theme } from 'antd';
 import { Fragment, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -12,11 +13,17 @@ interface BoardProps {
   isDarkMode: boolean;
 }
 
+interface ItemType {
+  value: string;
+  label: JSX.Element;
+}
+
 const Board: React.FC<BoardProps> = ({ isDarkMode }) => {
   const { defaultAlgorithm, darkAlgorithm } = theme;
   const dispatch = useDispatch();
   const isCardModalOpen = useSelector((state: RootState) => state.globalState.isCardModalOpen);
-  const [clickedCard, setClickedCard] = useState<TaskDataProps | null>(null);
+  const currentSprint = useSelector((state: RootState) => state.globalState.currentSprint);
+  const [clickedCard, setClickedCard] = useState({});
   
   const handleCardTaskOpen = (task: TaskDataProps) => {
     setClickedCard(task)
@@ -24,7 +31,7 @@ const Board: React.FC<BoardProps> = ({ isDarkMode }) => {
   }
 
   const handleCardTaskClose = () => {
-    setClickedCard(null)
+    setClickedCard({})
     dispatch(setIsCardModalOpen(false))
   }
 
@@ -34,7 +41,7 @@ const Board: React.FC<BoardProps> = ({ isDarkMode }) => {
   allStatuses.forEach(status => {
     tasksByStatus[status] = [];
   });
-  
+
   data[currentSprint].forEach(task => {
     tasksByStatus[task.status].push(task);
   });
@@ -63,12 +70,19 @@ const Board: React.FC<BoardProps> = ({ isDarkMode }) => {
 
   const handleChangeTaskStatus = (index: number) => {
     if (clickedCard?.["task-id"]) {
-      data[currentSprint][clickedCard["task-id"]-1]["status"] = index;
+      const updatedData = data[currentSprint].map((task) => {
+        if (task["task-id"] === clickedCard?.["task-id"]) {
+          return { ...task, status: index };
+        }
+        return task;
+      });
+
+      data[currentSprint] = updatedData;
     }
     dispatch(setIsCardModalOpen(false));
-  }
+  };
 
-  const items = [
+  const items: ItemType[] = [
     ...Array.from({ length: 6 }, (_, index) => ({
       value: `${index}`,
       label: (
@@ -86,7 +100,13 @@ const Board: React.FC<BoardProps> = ({ isDarkMode }) => {
       <Fragment>
         <Navbar/>
         <div className="flex flex-col md:p-8 w-full min-h-screen bg-zinc-800 overflow-x-scroll">
-          <span className="px-4 py-2 text-lg">{projectName} / <strong className="hover:underline hover:cursor-pointer">Sprint {currentSprint}</strong></span>
+          <div className="flex gap-2">
+            <span className="px-4 py-2 text-lg">
+              {projectName} / <strong className="hover:underline hover:cursor-pointer">Sprint {currentSprint}</strong>
+            </span>
+            <MyButton text="Previous" disabled={currentSprint < allSprint} onClick={() => dispatch(setCurrentSprint(currentSprint-1))}/>
+            <MyButton text="Next" disabled={currentSprint === allSprint}  onClick={() => dispatch(setCurrentSprint(currentSprint+1))}/>
+          </div>
           <div className="md:w-auto sm:w-fit overflow-x-scroll">
             <div className="min-w-full w-fit">
               <Row gutter={{ xs: 4, sm: 8 }}>
@@ -105,36 +125,7 @@ const Board: React.FC<BoardProps> = ({ isDarkMode }) => {
           </div>
         </div>
 
-        <Modal centered title={clickedCard?.["title"]} footer={false} open={isCardModalOpen} onCancel={handleCardTaskClose}>
-          <div className="mb-4">
-            {clickedCard?.["detail"]}
-          </div>
-          <div className="flex justify-between items-center">
-            <div className="flex items-center gap-1">
-              {projectName}-{clickedCard?.["task-id"]}
-              <Divider type="vertical"/>
-              <Dropdown menu={{ items }} trigger={['click']}>
-                <a onClick={(e) => e.preventDefault()}>
-                  <Space>
-                    {statusBadge(clickedCard?.["status"] || 0)}
-                    <DownOutlined />
-                  </Space>
-                </a>
-              </Dropdown>
-              {/* <Select
-                defaultValue={1}
-                style={{ width: 145 }} //"fit-content" }}
-                onChange={handleChangeTaskStatus}
-                options={[]}
-              /> */}
-            </div>
-            <div className="flex justify-between items-center gap-2">
-              {pointBadge(clickedCard?.["point"] || 3)}
-              {priorityBadge(clickedCard?.["priority"])}
-              {clickedCard?.["assignee"]}
-            </div>
-          </div>
-        </Modal>
+        <TaskModal clickedCard={clickedCard} onCancel={handleCardTaskClose} items={items}/>
       </Fragment>
     </ConfigProvider>
   )

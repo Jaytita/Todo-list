@@ -1,10 +1,11 @@
 import { PlusOutlined } from '@ant-design/icons';
 import Navbar from '@components/navbar';
+import TaskModal from '@components/taskModal';
 import { setIsCardModalOpen } from '@redux/reducers/globalReducer';
 import { RootState } from '@redux/store/reducers';
 import { TaskDataProps, data, pointBadge, priorityBadge, projectName, statusBadge } from '@src/utils';
 import type { CollapseProps } from 'antd';
-import { Collapse, ConfigProvider, Modal, Typography, theme } from 'antd';
+import { Collapse, ConfigProvider, Typography, theme } from 'antd';
 import { Fragment, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -12,13 +13,19 @@ interface BacklogProps {
   isDarkMode: boolean;
 }
 
+interface ItemType {
+  value: string;
+  label: JSX.Element;
+}
+
 const Backlog: React.FC<BacklogProps> = ({ isDarkMode }) => {
   const { defaultAlgorithm, darkAlgorithm } = theme;
   const dispatch = useDispatch();
   const { Text } = Typography;
   const isCardModalOpen = useSelector((state: RootState) => state.globalState.isCardModalOpen);
+  const currentSprint = useSelector((state: RootState) => state.globalState.currentSprint);
 
-  const [clickedCard, setClickedCard] = useState<TaskDataProps | null>(null);
+  const [clickedCard, setClickedCard] = useState({});
 
   const allSprint = Object.keys(data).length;
   const items: CollapseProps['items'] = Array.from({ length: allSprint }, (_, index) => ({
@@ -48,11 +55,41 @@ const Backlog: React.FC<BacklogProps> = ({ isDarkMode }) => {
           <p className="ml-2">Create new</p>
         </div>
       </>
-  }))
+  }));
+
+  const handleChangeTaskStatus = (index: number) => {
+    if (clickedCard?.["task-id"]) {
+      const updatedData = data[currentSprint].map((task) => {
+        if (task["task-id"] === clickedCard?.["task-id"]) {
+          return { ...task, status: index };
+        }
+        return task;
+      });
+
+      data[currentSprint] = updatedData;
+    }
+    dispatch(setIsCardModalOpen(false));
+  };
+
+  const cardItems: ItemType[] = [
+    ...Array.from({ length: 6 }, (_, index) => ({
+      value: `${index}`,
+      label: (
+        <div onClick={() => handleChangeTaskStatus(index)}>
+          {statusBadge(index)}
+        </div>
+      ),
+    })),
+  ];
   
   const handleCardTaskOpen = (task: TaskDataProps) => {
     setClickedCard(task)
     dispatch(setIsCardModalOpen(true))
+  }
+
+  const handleCardTaskClose = () => {
+    setClickedCard({})
+    dispatch(setIsCardModalOpen(false))
   }
   
   return(
@@ -66,23 +103,7 @@ const Backlog: React.FC<BacklogProps> = ({ isDarkMode }) => {
           <Collapse items={items} defaultActiveKey={['1']} />
         </div>
 
-        <Modal centered title={clickedCard?.["title"]} footer={false} open={isCardModalOpen} onCancel={() => dispatch(setIsCardModalOpen(false))}>
-          <div className="mb-2">
-            {clickedCard?.["detail"]}
-          </div>
-          <div className="flex justify-between items-center">
-            <div className="">
-              <Text ellipsis>
-                {projectName}-{clickedCard?.["task-id"]}
-              </Text>
-            </div>
-            <div className="flex justify-between items-center gap-1">
-              {pointBadge(clickedCard?.["point"] || 3)}
-              {priorityBadge(clickedCard?.["priority"])}
-              {clickedCard?.["assignee"]}
-            </div>
-          </div>
-        </Modal>
+        <TaskModal clickedCard={clickedCard} onCancel={handleCardTaskClose} items={cardItems}/>
       </Fragment>
     </ConfigProvider>
   )

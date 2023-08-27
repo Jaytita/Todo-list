@@ -4,6 +4,7 @@ const initialState = {
   isLogin: localStorage.getItem('isLogin') === 'true',
   isCardModalOpen: false,
   clickedTaskId: 0,
+  currentSprint: 1,
 };
 
 const globalSlice = createSlice({
@@ -20,8 +21,11 @@ const globalSlice = createSlice({
     setClickedTaskId: (state, action) => {
       state.clickedTaskId = action.payload;
     },
+    setCurrentSprint: (state, action) => {
+      state.currentSprint = action.payload;
+    },
   }
 });
 
-export const { setIsLogin, setIsCardModalOpen, setClickedTaskId } = globalSlice.actions;
+export const { setIsLogin, setIsCardModalOpen, setClickedTaskId, setCurrentSprint } = globalSlice.actions;
 export default globalSlice.reducer;
