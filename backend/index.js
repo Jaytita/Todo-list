@@ -29,3 +29,6 @@ app.use('/',(req,res)=>{
 app.listen(port,()=>{
     console.log(`Server start on port ${port}.`);
 })
+
+// Export the Express API
+module.exports = app;
