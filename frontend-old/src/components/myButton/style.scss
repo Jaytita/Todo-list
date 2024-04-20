@@ -1,0 +1,19 @@
+.my-button {
+  padding: 0.5em 1em;
+  background-color: var(--light-bg);
+  border: none;
+  border-radius: 0.5em;
+  color: var(--text-primary);
+  font-size: 1em;
+  font-weight: 400;
+
+  &.primary {
+    background-color: var(--app-primary);
+  }
+
+  &:hover {
+    filter: brightness(0.9);
+    cursor: pointer;
+  }
+
+}
