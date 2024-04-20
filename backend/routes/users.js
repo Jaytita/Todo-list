@@ -93,6 +93,7 @@ router.route('/resetpassword/:id/:token').post(async (req, res) => {
 		res.status(200).send({ message: "Password reset successfully" });
 	} catch (error) {
 		res.status(500).send({ message: "Internal Server Error" });
+        res.status(504).send({ message: "FUNCTION_INVOCATION_TIMEOUT" });
 	}
 });
 
